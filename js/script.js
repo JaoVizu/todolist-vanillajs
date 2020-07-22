@@ -2,9 +2,6 @@ const sendTask = document.querySelector('#send-task')
 const inputTask = document.querySelector('#input-task')
 const todoList = document.querySelector('#todo-list')
 const alertNull = document.querySelector('.alert')
-const completeButtons = [...document.querySelectorAll('.fa.fa-check.complete-icon')]
-
-let idControl = 1;
 
 const isNull = (value) => value === '' ? true : false
 
@@ -30,9 +27,7 @@ const createElements = (task) => {
   
     //Incluindo valores e atributos
     newTask.classList.add('task')
-    idControl++;
     checkIcon.className = 'fa fa-check complete-icon'
-    checkIcon.setAttribute('data-id', idControl)
     checkIcon.onclick = () => {completeTask(newTask)}
     trashIcon.className = 'fa fa-trash'
     trashIcon.onclick = () => {deleteTask(newTask)}
@@ -61,7 +56,5 @@ const completeTask = (taskAtual) => {
 const deleteTask = (taskAtual) => {
   taskAtual.remove()
 }
-
-completeTask()
 
 sendTask.addEventListener('click', handleClick)
