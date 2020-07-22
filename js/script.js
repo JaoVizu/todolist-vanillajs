@@ -2,7 +2,11 @@ const sendTask = document.querySelector('#send-task')
 const inputTask = document.querySelector('#input-task')
 const todoList = document.querySelector('#todo-list')
 const alertNull = document.querySelector('.alert')
+const completeButtons = [...document.querySelectorAll('.fa.fa-check.complete-icon')]
 
+let idControl = 1;
+
+const isNull = (value) => value === '' ? true : false
 
 const handleClick = event => {
   event.preventDefault()
@@ -26,12 +30,16 @@ const createElements = (task) => {
   
     //Incluindo valores e atributos
     newTask.classList.add('task')
-    checkIcon.className = 'fa fa-check'
+    idControl++;
+    checkIcon.className = 'fa fa-check complete-icon'
+    checkIcon.setAttribute('data-id', idControl)
+    checkIcon.onclick = () => {completeTask(newTask)}
     trashIcon.className = 'fa fa-trash'
+    trashIcon.onclick = () => {deleteTask(newTask)}
     paragraph.textContent = task
+
   
-  
-    //Inserindo no elemento
+    //Inserindo os elementos dentro do elemento pai (newTask)
     newTask.appendChild(checkIcon)
     newTask.appendChild(paragraph)
     newTask.appendChild(trashIcon)
@@ -41,7 +49,19 @@ const createElements = (task) => {
     inputTask.value = ''
 }
 
-const isNull = (value) => value === '' ? true : false
+const completeTask = (taskAtual) => {
+  if(!taskAtual) return;
 
+  const completed = document.createElement('div')
+  completed.classList.add('complete')
+  taskAtual.classList.add('done')
+  taskAtual.appendChild(completed)
+}
+
+const deleteTask = (taskAtual) => {
+  taskAtual.remove()
+}
+
+completeTask()
 
 sendTask.addEventListener('click', handleClick)
