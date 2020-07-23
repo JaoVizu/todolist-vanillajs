@@ -8,14 +8,15 @@ const isNull = (value) => value === '' ? true : false
 const handleClick = event => {
   event.preventDefault()
 
-  if(!isNull(inputTask.value)){
-    createElements(inputTask.value)
-    alertNull.style.display = 'none'
-  }
-  else {
-    alertNull.style.display = 'block'
-  }
+  if(!isNull(inputTask.value)) addTask()
+  else alertNull.style.display = 'block'
 
+}
+
+const addTask = () => {
+  createElements(inputTask.value)
+  totalTasks();
+  alertNull.style.display = 'none'
 }
 
 const createElements = (task) => {
@@ -55,6 +56,14 @@ const completeTask = (taskAtual) => {
 
 const deleteTask = (taskAtual) => {
   taskAtual.remove()
+  totalTasks();
+}
+
+const totalTasks = () => {
+  const divTotal = document.querySelector('#total-tasks');
+
+  divTotal.innerText = `Total tasks: ${todoList.children.length}`
+ 
 }
 
 sendTask.addEventListener('click', handleClick)
